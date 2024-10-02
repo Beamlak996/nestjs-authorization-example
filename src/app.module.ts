@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { UsersModule } from './users/users.module';
 import { DemoHelperModule } from './demo-helper/demo-helper.module';
+import { RolesGuard } from './auth/guards/roles.guard';
 
 @Module({
   imports: [
@@ -32,6 +33,10 @@ import { DemoHelperModule } from './demo-helper/demo-helper.module';
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
     },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard
+    }
   ],
 })
 export class AppModule {}

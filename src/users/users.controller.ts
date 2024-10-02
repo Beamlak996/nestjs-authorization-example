@@ -3,12 +3,15 @@ import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { FindUsersDto } from './dto/find-users.dto';
 import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
+import { Roles } from '../auth/decorators/roles.decorator';
+import { ClientRole } from '../auth/enums/role.enum';
 
 @Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @Get()
+  @Roles(ClientRole.Admin, ClientRole.Editor)
   findMany(@Query() query: FindUsersDto) {
     return this.usersService.findMany(query);
   }
