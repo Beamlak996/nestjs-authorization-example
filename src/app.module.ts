@@ -10,6 +10,7 @@ import { UsersModule } from './users/users.module';
 import { DemoHelperModule } from './demo-helper/demo-helper.module';
 import { RolesGuard } from './auth/guards/roles.guard';
 import { PermissionsGuard } from './auth/guards/permissions.guard';
+import { CaslModule } from './casl/casl.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { PermissionsGuard } from './auth/guards/permissions.guard';
     UsersModule,
     AuthModule,
     DemoHelperModule,
+    CaslModule,
   ],
   controllers: [AppController],
   providers: [
