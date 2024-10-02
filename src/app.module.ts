@@ -9,6 +9,7 @@ import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { UsersModule } from './users/users.module';
 import { DemoHelperModule } from './demo-helper/demo-helper.module';
 import { RolesGuard } from './auth/guards/roles.guard';
+import { PermissionsGuard } from './auth/guards/permissions.guard';
 
 @Module({
   imports: [
@@ -36,6 +37,10 @@ import { RolesGuard } from './auth/guards/roles.guard';
     {
       provide: APP_GUARD,
       useClass: RolesGuard
+    },
+    {
+      provide: APP_GUARD,
+      useClass: PermissionsGuard
     }
   ],
 })

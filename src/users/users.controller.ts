@@ -5,6 +5,8 @@ import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { ClientRole } from '../auth/enums/role.enum';
+import { Permissions } from '../auth/decorators/permissions.decorator';
+import { ClientPermission } from '../auth/enums/permission.enum';
 
 @Controller('users')
 export class UsersController {
@@ -12,6 +14,7 @@ export class UsersController {
 
   @Get()
   @Roles(ClientRole.Admin, ClientRole.Editor)
+  @Permissions(ClientPermission.CreateAnnouncement)
   findMany(@Query() query: FindUsersDto) {
     return this.usersService.findMany(query);
   }
