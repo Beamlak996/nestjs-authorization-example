@@ -44,7 +44,11 @@ export class UsersService {
   ): Promise<User | null> {
     const query = this.usersRepository
       .createQueryBuilder('user')
-      .where('user.username = :username', { username });
+      .where('user.username = :username', { username })
+      .leftJoinAndSelect('user.roles', 'role')
+      .leftJoinAndSelect('role.permissions', 'rolePermission')
+      .leftJoinAndSelect('user.permissions', 'permission');
+
     if (selectSecrets) {
       query.addSelect('user.password');
     }
@@ -58,8 +62,10 @@ export class UsersService {
       throw new NotFoundException();
     }
 
-    const { accountStatus } = dto;
+    const { roles, permissions, accountStatus } = dto;
 
+    user.roles = roles ?? user.roles;
+    user.permissions = permissions ?? user.permissions;
     user.accountStatus = accountStatus ?? user.accountStatus;
 
     return await this.usersRepository.save(user);
